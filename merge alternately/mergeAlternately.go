@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"math"
+	"strings"
 )
 
 /*
@@ -38,34 +38,23 @@ merged: a p b q c   d
 */
 
 func mergeAlternately(word1 string, word2 string) string {
-	word1len := len(word1)
-	word2len := len(word2)
+	var merged strings.Builder
+	i, j := 0, 0
 
-	diff := math.Abs(float64(word1len) - float64(word2len))
-	var index int
-	var longWord string
-	if word1len > word2len {
-		index = word1len
-		longWord = word1
-	} else if word2len > word1len {
-		index = word2len
-		longWord = word2
-	} else {
-		index = word1len
+	for i < len(word1) && j < len(word2) {
+		merged.WriteByte(word1[i])
+		merged.WriteByte(word2[j])
+		i++
+		j++
 	}
 
-	var appendedString string
-	for i := 0; i < index; i++ {
-		appendedString += string(word1[i])
-		appendedString += string(word2[i])
+	if i < len(word1) {
+		merged.WriteString(word1[i:])
+	} else if j < len(word2) {
+		merged.WriteString(word2[j:])
 	}
 
-	if diff == 0 {
-		return appendedString
-	} else {
-		appendedString += longWord[len(longWord)-int(diff)-1:]
-		return appendedString
-	}
+	return merged.String()
 }
 
 func main() {
