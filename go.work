@@ -6,4 +6,5 @@ use (
     "./move zeroes"
     "./contains duplicate"
     "./valid anagram"
+    "./two sum"
 )
