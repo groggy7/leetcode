@@ -20,26 +20,26 @@ Input: nums = [1,1,1,3,3,4,3,2,4,2]
 Output: true
 */
 
-//My first solution
-/* Probably the worst one :)
+// My first solution
+// Probably the worst one :)
 func containsDuplicate(nums []int) bool {
-    counter := make(map[int]int)
+	counter := make(map[int]int)
 
-    for _, num := range nums {
-        counter[num]++
-    }
+	for _, num := range nums {
+		counter[num]++
+	}
 
-    for _, value := range counter {
-        if value > 1 {
-            return true
-        }
-    }
+	for _, value := range counter {
+		if value > 1 {
+			return true
+		}
+	}
 
-    return false
-}*/
+	return false
+}
 
-//Second solution, this uses bool instead of int
-/*func containsDuplicate(nums []int) bool {
+// Second solution, this uses bool instead of int
+func _containsDuplicate(nums []int) bool {
 	counter := make(map[int]bool)
 
 	for _, num := range nums {
@@ -51,11 +51,11 @@ func containsDuplicate(nums []int) bool {
 	}
 
 	return false
-}*/
+}
 
 // Third solution, first we sort the array, then check
 // if the indices are the same, if so return true
-func containsDuplicate(nums []int) bool {
+func __containsDuplicate(nums []int) bool {
 	sort.Ints(nums)
 
 	for i := 1; i < len(nums); i++ {
@@ -66,15 +66,30 @@ func containsDuplicate(nums []int) bool {
 	return false
 }
 
-//Fourth solution, hash set
-/*func containsDuplicate(nums []int) bool {
-    seen := make(map[int]struct{})
+// Fourth solution, hash set
+func ___containsDuplicate(nums []int) bool {
+	seen := make(map[int]struct{})
 
-    for _, num := range nums {
-        if _, exists := seen[num]; exists {
-            return true
-        }
-        seen[num] = struct{}{}
-    }
-    return false
-}*/
+	for _, num := range nums {
+		if _, exists := seen[num]; exists {
+			return true
+		}
+		seen[num] = struct{}{}
+	}
+	return false
+}
+
+// Note that using a bool value instead of an empty struct
+// increases the memory usage slightly. bool takes 1 byte,
+// empty struct (struct{}) doesnt occupy any memory
+func containsDuplicate_(nums []int) bool {
+	seen := make(map[int]bool)
+
+	for _, num := range nums {
+		if _, exists := seen[num]; exists {
+			return true
+		}
+		seen[num] = true
+	}
+	return false
+}
